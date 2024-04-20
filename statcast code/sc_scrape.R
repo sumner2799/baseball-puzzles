@@ -5,8 +5,8 @@ library(RPostgres)
 library(tidyverse)
 library(furrr)
 
-start <- "2024-04-06"
-end <- "2024-04-07"
+start <- "2024-04-20" # NOT FOR MNL DATA
+end <- "2024-04-21"
 
 for (i in 1:10000){
 
@@ -30,16 +30,13 @@ for (i in 1:10000){
   mnl_scrape <- ml_pbp %>%
     filter(type == "pitch", !is.na(pitchData.coordinates.pfxX),!is.na(pitchData.coordinates.pfxZ))
   
-  if (ncol(mnl_scrape) > 161) {
-    mnl_scrape <- mnl_scrape %>%
-      select(-c(reviewDetails.challengeTeamId,reviewDetails.challengeTeamId.x,reviewDetails.challengeTeamId.y,
-                reviewDetails.inProgress.x,reviewDetails.inProgress.y,reviewDetails.isOverturned.x,
-                reviewDetails.isOverturned.y,reviewDetails.reviewType.x,reviewDetails.reviewType.y))
-  } else {
-    mnl_scrape <- mnl_scrape
-  }
+  common_cols <- intersect(colnames(mnl_sc_24), colnames(mnl_scrape))
   
-  mnl_sc_24 <- rbind(mnl_sc_24,mnl_scrape)
+  mnl_sc_24 <- rbind(
+    subset(mnl_sc_24, select = common_cols), 
+    subset(mnl_scrape, select = common_cols)
+  )
+  
   
   scrape <- scrape_statcast_savant(start_date = start, end_date = end, player_type = "pitcher")
   
@@ -48,7 +45,7 @@ for (i in 1:10000){
   start = as.Date(end) + 1
   end = as.Date(start) + 1
   
-  if (start >= as.Date("2024-04-09")){
+  if (end >= as.Date("2024-04-20")){
     break
   } else {
     start = as.character(start)
@@ -57,5 +54,5 @@ for (i in 1:10000){
 
 }
 
-mnl_scrape[, !names(mnl_scrape) %in% names(mnl_sc_24)]
+colnames(mnl_scrape[, !names(mnl_scrape) %in% names(mnl_sc_24)])
 # xl2 <- rbind(xl,mnl_scrape)
