@@ -7,3 +7,4 @@ Data-driven research in response to questions I have about the game of baseball
 - Analyzing the relationship between pitcher release angles (VRA/HRA) and arm angle at release (Blog Post: https://a27.aluminum.ittrium.com/hra-vra-differential-by-arm-slot)
 - Identifying the frequency with which groundball-heavy hitters make significant profile changes during their careers (Blog Post: https://a27.aluminum.ittrium.com/moving-away-from-a-groundball-heavy-profile)
 - Comparing changes in batted ball profile when hitters make the jump from MiLB to MLB (Blog Post: https://a27.aluminum.ittrium.com/relationships-between-milb-and-mlb-batted-ball-profiles)
+- Evaluating BB% differentials between AAA and MLB over time (Blog Post: https://a27.aluminum.ittrium.com/diminishing-value-of-plate-discipline-milb-to-mlb)
